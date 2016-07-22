@@ -1,0 +1,43 @@
+<?php $books = $this->books; ?>
+<div class="page-header">
+	<h1>Book <small>list</small></h1>
+	<a href="<?php echo $this->url('book/default', array('action' => 'create')) ?>" class="btn btn-success">New Book</a>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>URL</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>URL</th>
+					<th></th>
+				</tr>
+			</tfoot>
+			<tbody>
+			<?php foreach ($this->paginator as $book): ?>
+				<tr>
+					<td><?php echo $book->getId() ?></td>
+					<td><?php echo $book->getTitle() ?></td>
+					<td><a href="<?php echo $this->url('book/view', array('url' => $book->getUrl())) ?>"><?php echo $book->getUrl() ?></a></td>
+					<td>
+						<a href="<?php echo $this->url('book/default', array('action' => 'edit', 'id' => $book->getId())) ?>"><span class="label label-primary">Edit</span></a>
+						<a href="<?php echo $this->url('book/default', array('action' => 'delete', 'id' => $book->getId())) ?>" onclick="return confirm('Are you sure?')"><span class="label label-danger">Delete</span></a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+		<?php echo $this->paginationControl($this->paginator,
+			        'Sliding',
+			        'partials/pagination_control', array('route' => 'book/paginator')); ?>
+	</div>
+</div>

@@ -1,0 +1,50 @@
+<div class="page-header">
+	<h1>Pages <small>list</small></h1>
+	<a href="<?php echo $this->url('cms/default', array('action' => 'create')) ?>" class="btn btn-success">New Page</a>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Book</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>#</th>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Book</th>
+					<th>Action</th>
+				</tr>
+			</tfoot>
+			<tbody>
+			<?php foreach ($this->paginator as $page): ?>
+				<tr>
+					<th><?php echo $page->getId(); ?></th>
+					<td><a href="<?php echo $this->url('home/page', array('slug' => $page->getUrl()))?>"><?php echo $page->getTitle(); ?></a></td>
+					<td>
+						<a href=""><?php echo $page->getAuthor()->getFullName() ?></a>
+					</td>
+					<td>
+						<a href="<?php echo $this->url('book/view', array('url' => $page->getBook()->getUrl())) ?>"><?php echo $page->getBook()->getTitle() ?></a>
+					</td>
+					<td>
+						<a href="<?php echo $this->url('cms/default', array('action' => 'edit', 'id' => $page->getId())) ?>"><span class="label label-primary">Edit</span></a>
+						<a href="<?php echo $this->url('cms/default', array('action' => 'delete', 'id' => $page->getId())) ?>" onclick="return confirm('Are you sure?')"><span class="label label-danger">Delete</span></a>
+					</td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
+		</table>
+		<?php echo $this->paginationControl($this->paginator,
+			        'Sliding',
+			        'partials/pagination_control', array('route' => 'cms/paginator')); ?>
+
+	</div>
+</div>

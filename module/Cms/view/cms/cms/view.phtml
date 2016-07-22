@@ -1,0 +1,49 @@
+<?php
+/**
+ * Copyright © 2015. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$page = $this->page;
+$nextPage = $this->nextPage;
+$previousPage = $this->previousPage;
+?>
+<ol class="breadcrumb">
+	<li><a href="<?php echo $this->url('home') ?>">Home</a></li>
+	<li><a href="<?php echo $this->url('book/view', array('url' => $page->getBook()->getUrl())) ?>"><?php echo $page->getBook()->getTitle() ?></a></li>
+</ol>
+
+<div class="page-header">
+	<h1><?php echo $page->getTitle() ?></h1>
+</div>
+
+<div class="row toolbar-wrapper">
+	<div id="toolbar" class="container">
+		<a href="<?php echo $this->url('cms/default', array('action' => 'edit', 'id' => $page->getId())) ?>" class="btn btn-success" title="Edit"><i class="fa fa-pencil-square-o"></i> Edit</a>
+
+		<div class="btn-group" role="group" aria-label="...">
+			<?php if (!empty($previousPage)) : ?>
+				<a href="<?php echo $previousPage->getUrl() ?>" class="btn btn-default"><i class="fa fa-chevron-left"></i> <?php echo $previousPage->getTitle() ?></a>
+			<?php endif; ?>
+			<?php if (!empty($nextPage)) : ?>
+				<a href="<?php echo $nextPage->getUrl() ?>" class="btn btn-default"><?php echo $nextPage->getTitle() ?> <i class="fa fa-chevron-right"></i></a>
+			<?php endif; ?>			
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<?php echo $page->getContent(); ?>
+	</div>
+</div>
+<?php
+$this->inlineScript()->captureStart();
+echo <<<JS
+$("#toolbar").affix({
+	offset: {
+		top: $("#toolbar").offset().top,
+	}
+});
+JS;
+$this->inlineScript()->captureEnd();
+?>

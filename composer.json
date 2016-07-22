@@ -1,0 +1,46 @@
+{
+    "name": "matheusvcorrea/sample-cms-markdown",
+    "description": "Sample Markdown CMS application",
+    "license": "MIT",
+    "keywords": [
+        "cms",
+        "markdown",
+        "zf2"
+    ],    
+    "authors": [
+        {
+            "name": "Matheus Correa",
+            "email": "matheuscorrea@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5",
+        "doctrine/doctrine-module": "^0.10",
+        "doctrine/doctrine-orm-module": "^0.9.1"
+    },
+    "require-dev": {
+    	"zendframework/zendframework": "~2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "module/Application/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ApplicationTest\\": "module/Application/test/"
+        }
+    },
+    "extra": {
+        "zend-skeleton-installer": [
+            {
+                "name": "zendframework/zend-developer-tools",
+                "constraint": "^1.1.0",
+                "prompt": "Would you like to install the developer toolbar?",
+                "module": true,
+                "dev": true
+            }
+        ]
+    }
+}

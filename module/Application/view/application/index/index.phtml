@@ -1,0 +1,11 @@
+<?php
+$books = $this->books;
+?>
+<div class="jumbotron">
+	<h1 class="center-block">Hello Everyone</h1>
+	<small>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</small>
+	<h2>Books</h2>
+<?php foreach ($books as $book) : ?>
+	<a href="<?php echo $this->url('book/view', array('url' => $book->getUrl())) ?>"><span class="label label-info"><?php echo $book->getTitle() ?></span></a>
+<?php endforeach; ?>
+</div>

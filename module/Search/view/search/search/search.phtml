@@ -1,0 +1,11 @@
+<h1>Search by "<?php echo $this->query ?>"</h1>
+
+<?php foreach ($this->result as $result) : ?>
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    <a href="<?php echo $result->getUrl() ?>">
+	    	<strong><?php echo $result->getTitle() ?></strong>
+	    </a>
+	  </div>
+	</div>
+<?php endforeach; ?>

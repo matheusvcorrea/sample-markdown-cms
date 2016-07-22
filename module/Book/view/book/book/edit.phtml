@@ -1,0 +1,23 @@
+<?php
+$book = $this->book;
+$form = $this->form;
+$form->setAttribute('action', $this->url('book/default', array('action' => 'edit', 'id' => $book->getId())));
+$form->prepare();
+?>
+<div class="page-header">
+  	<h1>Edit <small>book</small></h1>
+	<a href="<?php echo $this->url('book') ?>" class="btn btn-default"><i class="fa fa-angle-left"></i> Back</a>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<?php echo $this->form()->openTag($form); ?>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('title')) ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('url')) ?>
+		</div>
+		<?php echo $this->formSubmit($form->get('submit')) ?>
+	<?php echo $this->form()->closeTag(); ?>
+	</div>
+</div>

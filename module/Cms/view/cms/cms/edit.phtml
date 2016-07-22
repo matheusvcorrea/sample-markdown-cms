@@ -1,0 +1,82 @@
+<?php
+/**
+ * Copyright © 2015. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$this->headScript()->prependFile($this->basePath('js/tinymce/tinymce.min.js'));
+$page = $this->page;
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('cms/default', array('action' => 'edit', 'id' => $page->getId())));
+$form->prepare();
+?>
+<div class="page-header">
+  	<h1>Edit <small>page</small></h1>
+	<a href="<?php echo $this->url('cms') ?>" class="btn btn-default"><i class="fa fa-angle-left"></i> Back</a>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<?php echo $this->form()->openTag($form); ?>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('title')) ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('url')) ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('book')) ?>
+		</div>
+		<div class="form-group">
+			<?php echo $this->formRow($form->get('content')) ?>
+		</div>
+		<?php echo $this->formSubmit($form->get('submit')) ?>
+	<?php echo $this->form()->closeTag(); ?>
+	</div>
+</div>
+<?php
+$this->inlineScript()->captureStart();
+echo <<<JS
+tinymce.init({
+	selector: 'textarea#content',
+	inline: false,
+	menubar:false,
+	height: 500,
+	toolbar: 'undo redo | styleselect | bold italic removeformat | alignleft aligncenter alignright | bullist numlist | blockquote | link unlink anchor | image table | code',
+	plugins: 'image link table autosave code lists advlist textpattern',
+	textpattern_patterns: [
+		{start: '*', end: '*', format: 'italic'},
+		{start: '**', end: '**', format: 'bold'},
+		{start: '#', format: 'h1'},
+		{start: '##', format: 'h2'},
+		{start: '###', format: 'h3'},
+		{start: '####', format: 'h4'},
+		{start: '#####', format: 'h5'},
+		{start: '######', format: 'h6'},
+		{start: '1. ', cmd: 'InsertOrderedList'},
+		{start: '* ', cmd: 'InsertUnorderedList'},
+		{start: '- ', cmd: 'InsertUnorderedList'}
+  	],
+	link_list: [
+		{title: 'My page 1', value: 'http://www.tinymce.com'},
+		{title: 'My page 2', value: 'http://www.ephox.com'}
+	],
+	content_css: [
+    	'//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    	'//www.tinymce.com/css/codepen.min.css'
+  	],
+	link_assume_external_targets: true,
+	relative_urls : false,
+	remove_script_host : true,
+	document_base_url : "/img",
+	convert_urls : true,
+	automatic_uploads: true
+});
+$(function() {
+	$("#save").click(function() {
+		var content = tinyMCE.activeEditor.getContent();
+		$('textarea#content').val(content);
+	});
+});
+JS;
+$this->inlineScript()->captureEnd();
+?>
