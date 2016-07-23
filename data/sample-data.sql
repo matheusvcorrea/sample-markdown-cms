@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 
 INSERT INTO `User` (`id`, `role_id`, `fullName`, `username`, `password`) VALUES
 (1, 2, 'Admin', 'admin', '81dc9bdb52d04dc20036dbd8313ed055'),
-(2, 3, 'Member', 'member', '81dc9bdb52d04dc20036dbd8313ed055');
+(2, 3, 'Member', 'member', '827ccb0eea8a706c4c34a16891f84e7b');
 
 --
 -- Constraints for dumped tables
