@@ -15,6 +15,33 @@ Create your new Sample Markdown CMS project:
 
     composer create-project -n -sdev matheusvcorrea/sample-cms-markdown path/to/install
 
+## Config
+### Doctrine Connection
+Connection parameters can be defined in the application configuration in `config/autoload/doctrine.local.php`:
+
+```php
+<?php
+return array(
+    'doctrine' => array(
+        'connection' => array(
+            // default connection name
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => 'username',
+                    'password' => 'password',
+                    'dbname'   => 'database',
+                )
+            )
+        )
+    ),
+);
+```
+
+### Sample Data
+Import the SQL sample data located in `data/sample-data.sql`.
 
 Web server setup
 ----------------
@@ -38,8 +65,8 @@ project and you should be ready to go! It should look something like below:
 
     <VirtualHost *:80>
         ServerName markdown.localhost
-        DocumentRoot /path/to/markdown/public
-        <Directory /path/to/markdown/public>
+        DocumentRoot /path/to/sample-markdown-cms/public
+        <Directory /path/to/sample-markdown-cms/public>
             DirectoryIndex index.php
             AllowOverride All
             Order allow,deny
@@ -62,13 +89,13 @@ into `http` block if it does not already exist:
     }
 
 
-Create a virtual host configuration file for your project under `/path/to/nginx/sites-enabled/markdown.localhost.conf`
+Create a virtual host configuration file for your project under `/path/to/nginx/sites-enabled/sample-markdown-cms.localhost.conf`
 it should look something like below:
 
     server {
         listen       80;
         server_name  markdown.localhost;
-        root         /path/to/markdown/public;
+        root         /path/to/sample-markdown-cms/public;
 
         location / {
             index index.php;
@@ -78,7 +105,7 @@ it should look something like below:
         location @php {
             # Pass the PHP requests to FastCGI server (php-fpm) on 127.0.0.1:9000
             fastcgi_pass   127.0.0.1:9000;
-            fastcgi_param  SCRIPT_FILENAME /path/to/markdown/public/index.php;
+            fastcgi_param  SCRIPT_FILENAME /path/to/sample-markdown-cms/public/index.php;
             include fastcgi_params;
         }
     }
